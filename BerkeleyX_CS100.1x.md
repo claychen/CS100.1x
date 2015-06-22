@@ -108,19 +108,19 @@ https://www.edx.org/course/introduction-big-data-apache-spark-uc-berkeleyx-cs100
 
 3. 執行資料科學的方法論(Doing Data Science)
     - Jim Gray 的模型 (圖靈獎資料庫專家)
-    	1. capture data
+    	  1. capture data
         2. curate data
         3. communicate the results
     - Ben Fry 的模型 (資料視覺化專家)
-    	1. Acquiring
+    	  1. Acquiring
         2. Parsing
-        3. text.splittext.splitFiltering
+        3. Filter(text.splittext.splitFiltering)
         4. Mining the data for information
         5. Representing the results
         6. Refining the model
         7. Interacting with the results
     - Jeff Hammerbacher 的模型 (臉書首席科學家, 帶領開發 Hive, 也是 Cloduera 共同創辦人)
-    	1. Identifying a problem
+    	  1. Identifying a problem
         2. Instrumenting the data sources
         3. Collecting the data
         4. Preparing that data (integrate, transform, clean, filter, and aggregate)
