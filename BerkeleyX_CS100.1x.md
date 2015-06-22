@@ -86,7 +86,7 @@ https://www.edx.org/course/introduction-big-data-apache-spark-uc-berkeleyx-cs100
         - domain expertise 領域知識
 2. 資料科學與其他領域的對比
 
-	| Database | Data Science |
+  | Database | Data Science |
 	|--------|--------|
 	| 結構化  | 半結構 或 非結構 |
 	| ACID   | CAP    |
@@ -150,24 +150,45 @@ https://www.edx.org/course/introduction-big-data-apache-spark-uc-berkeleyx-cs100
 ### Lecture 3: 巨量資料、硬體趨勢與 Apache Spark
 
 1. 巨量資料問題(The Big Data Problem)
-	- 一顆 1TB 硬碟只要 35 塊美金，處理 1TB 的資料卻要 3 個小時(100MB/s)
+  - 資料成長的速度比計算速度還要快
+  - 資料來源不斷地增加(web, mobile..)
+  - 儲存變便宜: 一顆 1TB 硬碟只要 35 塊美金，處理 1TB 的資料卻要 3 個小時(100MB/s)
+  - CPU跟Storage之間還是有瓶頸
 2. 巨量資料潮流下的硬體趨勢 (Hardware for Big Data)
 	- 改用一般等級的硬體，便宜、易於擴充，但容易故障，因此要用軟體的方式來解決
-3. 在本地端統計字數 (Counting Words Locally)
-	- Hash Table 的作法
-4. Counting Words in Really Big Documents
-5. Failures and Slow Tasks
-5. Using Map Reduce for Sorting
-6. Map Reduce and Disk I/O
-	- MapReduce 不合適迭代，因為 Disk I/O 會拖慢運算速度
-7. Technology Trends and an Opportunity
-	- 記憶體愈來愈便宜,
+3. 如何把工作分散到多台機器呢？(以word count為例)
+  - 把資料分散到數台機器，每台各自計算字詞出現的次數(Map)
+	- 利用一台機器累計各台機器Map的結果，但有可能字詞累計的結果無法放到一台機器
+  - 因此用多台機器分別累計不同字詞的統計結果(Reduce)
+4. What's Hard About Clustering Computing
+  - How to divide work accross machines? (consider network, data locality, reduce moving data)
+  - How to deal with failures? (or not failed but slow nodes) -> launch another task~
+5. Map Reduce and Disk I/O
+	- MapReduce 不適合迭代的工作，因為 Disk I/O 會拖慢運算速度
+6. Apache Spark Motivation 
+	- 記憶體愈來愈便宜 -> Keep more data in-memory
+7. Resilient Distributed Dataset (RDDs)
+  - 將物件散佈於 Cluster 之中，物件可以儲存在memory或disk中
+  - 可以對RDD做平行化的操作，例如 transformation (map, filter, join), action (count, collect, save)
+  - 當機器毀損時，RDDs可以自動重新重建
 8. The Spark Computing Framework
-	- 由 Spark Core, Spark SQL, Spark Streaming, MLlib 四個元件組成
+  - provides programming abstraction and parallel runtime to hide complexities of fault-tolerance and slow machines.
+  - 由 Spark Core, Spark SQL, Spark Streaming, MLlib 四個元件組成
 9. Spark and Map Reduce Differences
+  
+  | Comparison  | Hadoop Map Reduce | Spark |
+  |-------------|-------------------|-------|
+  | Storage | Disk only | In-memory or on Disk |
+  | Operations | Map and Reduce | Map, Reduce, Join, Sample, etc |
+  | Execution model  | Batch | Batch, interative, streaming |
+  | Programming environment  | Java  | Scala, Java, R and Python |
 
-PS. 因為這段牽涉到很多 Hadoop MapReduce 觀念，所以我看得很快。沒特別需要做紀錄的 XD
-
+10. Other difference
+  - Generalized patterns
+  - Lazy evaluation of the lineage graph
+  - Lower overhead for starting jobs
+  - Less expensive shuffles
+  
 ### Lecture 4: Spark 簡介
 
 1. Python Spark (pySpark)
